@@ -10,7 +10,7 @@ public class ChooseCoinSpawn : MonoBehaviour {
 
     void Awake()
     {
-        coins[Random.Range(0, coins.Length)].transform.position = coinSpawns[Random.Range(0, coinSpawns.Length)].transform.position;
+       // coins[Random.Range(0, coins.Length)].transform.position = coinSpawns[Random.Range(0, coinSpawns.Length)].transform.position;
     }
 	
 	// Update is called once per frame
