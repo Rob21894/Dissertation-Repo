@@ -21,7 +21,8 @@ public class DamagePlayer : MonoBehaviour {
         {
             col.GetComponent<PlayerControl>().playerHit = true;
             col.GetComponent<PlayerControl>().startFlash();
-            Debug.Log("hitplayer");
+            col.GetComponent<PlayerMovement>().startSpeed -= 3.0f;
+            col.GetComponent<PlayerMovement>().movementSpeed -= 2.0f;
         }
     }
 }

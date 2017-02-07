@@ -40,7 +40,7 @@ public class PlayerControl : MonoBehaviour {
 
 
 
-        if (transform.position.y <= -5.0f)
+        if (transform.position.y <= -10.0f)
         {
             playerStates = playerState.Dead;
         }
@@ -66,7 +66,6 @@ public class PlayerControl : MonoBehaviour {
 
     IEnumerator flashPlayer()
     {
-        Debug.Log("ran");
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         while (playerHit)
         {

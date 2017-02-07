@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour {
     public float movementSpeed = 5.0f;
     public float dist;
     PlayerControl playercontrol;
+    public float jumpCharge = 10.0f;
     private bool doubleJump = false;
     private bool jumping = false;
 
@@ -16,15 +17,17 @@ public class PlayerMovement : MonoBehaviour {
     private bool sliding = false;
     private float slideDuration = 1.5f;
 
+    Rigidbody2D rb;
     [HideInInspector]
     // Use this for initialization
     void Start ()
     {
         playercontrol = GetComponent<PlayerControl>();
+        rb = GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
 
         if (playercontrol.playerStates == PlayerControl.playerState.Running)
@@ -34,8 +37,13 @@ public class PlayerMovement : MonoBehaviour {
             playerSlide();
         }
 
-        
+        movementSpeed += 0.1f * Time.deltaTime;
+        if (movementSpeed >= 15.0f)
+        {
+            movementSpeed = 15.0f;
+        }
         Debug.DrawRay(transform.position, -Vector3.up * dist);
+      //  Debug.Log(rb.velocity.y);
 	}
 
     public void playerIsIdle()
@@ -49,20 +57,36 @@ public class PlayerMovement : MonoBehaviour {
         {
             startSpeed += 1.0f * 2 * Time.deltaTime;
         }
-        gameObject.transform.Translate(Vector3.right * startSpeed * Time.deltaTime);
+        // gameObject.transform.Translate(Vector3.right * startSpeed * Time.deltaTime);
+        rb.velocity = new Vector2(startSpeed, rb.velocity.y);
+       
     }
 
     public void playerJump()
     {
-        if (playercontrol.inputDevice.Action1 && checkGrounded())
+        if (playercontrol.inputDevice.Action1 && checkGrounded() && !doubleJump)
         {
             jumping = true;
             playercontrol.anim.SetBool("Land", false);
             playercontrol.anim.SetBool("idleToRun", false);
-            playercontrol.anim.SetBool("Jump",true);
+            playercontrol.anim.SetBool("Jump", true);
             playercontrol.anim.SetBool("JumpFallToRun", false);
-            gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 10, ForceMode2D.Impulse);
-            gameObject.transform.Translate(Vector3.right * startSpeed * Time.deltaTime);
+            //gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up * jumpCharge, ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, jumpCharge), ForceMode2D.Impulse);
+            //    gameObject.transform.Translate(Vector3.right * startSpeed * Time.deltaTime);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && checkGrounded() && !doubleJump)
+        {
+            jumping = true;
+            playercontrol.anim.SetBool("Land", false);
+            playercontrol.anim.SetBool("idleToRun", false);
+            playercontrol.anim.SetBool("Jump", true);
+            playercontrol.anim.SetBool("JumpFallToRun", false);
+            //gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up * jumpCharge, ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, jumpCharge),ForceMode2D.Impulse);
+        //    gameObject.transform.Translate(Vector3.right * startSpeed * Time.deltaTime);
 
         }
 
@@ -71,10 +95,15 @@ public class PlayerMovement : MonoBehaviour {
             gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 5, ForceMode2D.Impulse);
             jumping = false;
             doubleJump = true;
-            Debug.Log(doubleJump);
             gameObject.transform.Translate(Vector3.right * startSpeed * Time.deltaTime);
         }
-
+        if (Input.GetKeyDown(KeyCode.Space) && !checkGrounded() && !doubleJump)
+        {
+            gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 5, ForceMode2D.Impulse);
+            jumping = false;
+            doubleJump = true;
+            gameObject.transform.Translate(Vector3.right * startSpeed * Time.deltaTime);
+        }
         if (checkGrounded() && !jumping && !sliding)
         {
             doubleJump = false;

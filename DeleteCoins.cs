@@ -15,6 +15,6 @@ public class DeleteCoins : MonoBehaviour {
     void Update()
     {
         if (player.transform.position.x > transform.position.x + 5.0f)
-            Destroy(gameObject);
+            gameObject.SetActive(false);
     }
 }
