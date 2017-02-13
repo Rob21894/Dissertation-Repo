@@ -58,7 +58,7 @@ public class PlatformGeneration : MonoBehaviour {
                 
                 randDist = Random.Range(minX, maxX);
                 GameObject newplatform = platformRecycle.grabRecycledObject();
-                transform.position = new Vector2(transform.position.x + newplatform.GetComponent<BoxCollider2D>().offset.x + (newplatform.GetComponent<BoxCollider2D>().size.x / 2) + randDist, Random.Range(-3.18f,-5.22f));
+                transform.position = new Vector2(transform.position.x + (newplatform.GetComponent<BoxCollider2D>().size.x / 2) + randDist, Random.Range(-3.18f,-5.22f));
                 newplatform.transform.position = transform.position;
                 newplatform.transform.rotation = transform.rotation;
                 checkCoinsActive(newplatform);

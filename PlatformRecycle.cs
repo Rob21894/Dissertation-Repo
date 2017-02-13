@@ -27,7 +27,7 @@ public class PlatformRecycle : MonoBehaviour {
         {
           for (int j = 0; j < platformGeneration.PlatformPools[i].amountToPool; j++) // Grab the amountToPool for each addition to the class
             {
-                GameObject obj = (GameObject)Instantiate(platformGeneration.PlatformPools[i].platforms[Random.Range(0, platformGeneration.PlatformPools[i].platforms.Length)]);
+                GameObject obj = (GameObject)Instantiate(platformGeneration.PlatformPools[i].platforms[Random.Range(0, platformGeneration.PlatformPools[i].platforms.Length)],transform.position, Quaternion.Euler(-90,0,0));
                 obj.SetActive(false);
                 pooledPlatforms.Add(obj);
             }

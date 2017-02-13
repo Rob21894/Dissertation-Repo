@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour {
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && checkGrounded() && !doubleJump)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && checkGrounded() && !doubleJump)
         {
             jumping = true;
             playercontrol.anim.SetBool("Land", false);
@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour {
             doubleJump = true;
             gameObject.transform.Translate(Vector3.right * startSpeed * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !checkGrounded() && !doubleJump)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && !checkGrounded() && !doubleJump)
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 5, ForceMode2D.Impulse);
             jumping = false;
