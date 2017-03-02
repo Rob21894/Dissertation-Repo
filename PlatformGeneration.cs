@@ -35,6 +35,7 @@ public class PlatformGeneration : MonoBehaviour {
         GameObject go = platformRecycle.grabRecycledObject();
         platformRecycle = GetComponent<PlatformRecycle>();
         go.transform.position = new Vector2(transform.position.x, transform.position.y);
+        go.transform.rotation = Quaternion.Euler(0, 0, 0);
         lastobj = go;
         platformRecycle.GrabLastObject(lastobj);
         transform.position = new Vector2(transform.position.x + (go.GetComponent<BoxCollider2D>().size.x / 2), transform.position.y);
@@ -58,7 +59,7 @@ public class PlatformGeneration : MonoBehaviour {
                 
                 randDist = Random.Range(minX, maxX);
                 GameObject newplatform = platformRecycle.grabRecycledObject();
-                transform.position = new Vector2(transform.position.x + (newplatform.GetComponent<BoxCollider2D>().size.x / 2) + randDist, Random.Range(-3.18f,-5.22f));
+                transform.position = new Vector2(transform.position.x + (newplatform.GetComponent<BoxCollider2D>().size.x / 2) + randDist, -4.49f);
                 newplatform.transform.position = transform.position;
                 newplatform.transform.rotation = transform.rotation;
                 checkCoinsActive(newplatform);
@@ -71,7 +72,7 @@ public class PlatformGeneration : MonoBehaviour {
             }
             else if (transform.position.x <= generationPoint.position.x && jumpPlatformSpawned)
             {
-                randDist = Random.Range(1f, 15.0f);
+                randDist = Random.Range(minX, maxX);
                 GameObject newplatform = platformRecycle.grabRecycledObject();
                 transform.position = new Vector2(transform.position.x  + (newplatform.GetComponent<BoxCollider2D>().size.x / 2) + randDist, transform.position.y);
                 newplatform.transform.position = transform.position;

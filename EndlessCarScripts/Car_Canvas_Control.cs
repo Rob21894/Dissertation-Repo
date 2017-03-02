@@ -18,6 +18,11 @@ public class Car_Canvas_Control : MonoBehaviour
     public GameObject mainCanvas;
     public GameObject gameOverCanvas;
 
+
+    public Image healthBar;
+    [HideInInspector]
+    public float healthAmount = 1;
+
     private float tempDistance = 0;
     private float tempScore = 0;
     private float tempTotalScore = 0;
@@ -55,6 +60,7 @@ public class Car_Canvas_Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        healthBar.fillAmount = carControl.health;
         if (carControl == null)
         {
             carControl = GameObject.FindGameObjectWithTag("Player").GetComponent<CarControl>();

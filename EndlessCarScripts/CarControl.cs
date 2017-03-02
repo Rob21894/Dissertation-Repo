@@ -7,7 +7,7 @@ public class CarControl : MonoBehaviour {
     public InputDevice inputDevice;
     // Use this for initialization
     public Animator anim;
-
+    public float health = 1;
     public enum playerState { Idle, Driving, Pause, Dead };
     public playerState playerStates = playerState.Idle;
     void Start () {

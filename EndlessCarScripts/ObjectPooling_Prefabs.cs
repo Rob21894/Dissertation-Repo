@@ -7,8 +7,6 @@ public class ObjectPooling_Prefabs : MonoBehaviour {
     // public List<GameObject> platformList = new List<GameObject>();
     public GameObject player;
     public Transform generationPoint;
-    public float minX = 7.0f;
-    public float maxX = 10.0f;
     private float randDist;
 
     public Prefab_Recycle prefabRecycle;
@@ -22,9 +20,26 @@ public class ObjectPooling_Prefabs : MonoBehaviour {
         public string prefabType;
         public GameObject[] prefab;
         public int amountToPool;
+        /* Prefab Name
+         Prefab Types corresponding to name
+         Amount to pool (Can be different for each class element)*/
     }
 
-    public platformPools[] PlatformPools;
+    public platformPools[] PlatformPools; // make classes public
+
+    Vector3 lastObjectPos;
+
+    public Vector3 _lastObjectPos
+    {
+        get
+        {
+            return lastObjectPos;
+        }
+        set
+        {
+            lastObjectPos = value;
+        }
+    }
     // Use this for initialization
     void Start()
     {
@@ -37,11 +52,6 @@ public class ObjectPooling_Prefabs : MonoBehaviour {
         prefabRecycle.GrabLastObject(lastobj);
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + go.GetComponent<BoxCollider>().size.y);
         go.SetActive(true);
-        //    go.transform.position = new Vector3(transform.position.x, transform.position.y,transform.position.z + (go.GetComponent<BoxCollider>().center.y + go.GetComponent<BoxCollider>().size.y / 2));
-        //    lastobj = go;
-        //    prefabRecycle.GrabLastObject(lastobj);
-        //    transform.position = new Vector3(transform.position.x, transform.position.y,(go.GetComponent<BoxCollider>().center.y + go.GetComponent<BoxCollider>().size.y / 2));
-        //    go.SetActive(true);
     }
 
     // Update is called once per frame
@@ -53,28 +63,10 @@ public class ObjectPooling_Prefabs : MonoBehaviour {
 
     public void Spawn()
     {
-       // if (player.GetComponent<PlayerControl>().playerStates == PlayerControl.playerState.Running)
-      //  {
-
             if (transform.position.z <= generationPoint.position.z)
             {
-
-            //randDist = Random.Range(minX, maxX);
-            //GameObject newplatform = prefabRecycle.grabRecycledObject();
-            //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + (newplatform.GetComponent<BoxCollider>().center.y + newplatform.GetComponent<BoxCollider>().size.y / 2));
-            //newplatform.transform.position = transform.position;
-            //newplatform.transform.rotation = transform.rotation;
-            //newplatform.SetActive(true);
-            //lastobj = newplatform;
-            //prefabRecycle.GrabLastObject(lastobj);
-            //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + (newplatform.GetComponent<BoxCollider>().center.y + newplatform.GetComponent<BoxCollider>().size.y / 2));
-        }
-
-            if (Input.GetKeyDown(KeyCode.Return))
-        {
-            randDist = Random.Range(minX, maxX);
             GameObject newplatform = prefabRecycle.grabRecycledObject();
-            newplatform.transform.position = new Vector3(transform.position.x, transform.position.y,transform.position.z + (newplatform.GetComponent<BoxCollider>().size.y / 2) + newplatform.GetComponent<BoxCollider>().center.y);
+            newplatform.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + (newplatform.GetComponent<BoxCollider>().size.y / 2) + newplatform.GetComponent<BoxCollider>().center.y);
             newplatform.transform.position = transform.position;
             newplatform.transform.rotation = transform.rotation;
             newplatform.SetActive(true);
@@ -82,6 +74,6 @@ public class ObjectPooling_Prefabs : MonoBehaviour {
             prefabRecycle.GrabLastObject(lastobj);
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + newplatform.GetComponent<BoxCollider>().size.y);
         }
-       // }
+
     }
 }

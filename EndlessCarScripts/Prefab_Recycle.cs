@@ -70,6 +70,8 @@ public class Prefab_Recycle : MonoBehaviour {
 
     public GameObject GrabLastObject(GameObject go)
     {
+        GetComponent<ObjectPooling_Prefabs>()._lastObjectPos = go.transform.position;
         return go;
+ 
     }
 }
